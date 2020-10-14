@@ -1,0 +1,9 @@
+C:\Users\shini\source\repos\Proyecto-POO\bin\Debug\Proyecto-POO.exe.config
+C:\Users\shini\source\repos\Proyecto-POO\bin\Debug\Proyecto-POO.exe
+C:\Users\shini\source\repos\Proyecto-POO\bin\Debug\Proyecto-POO.pdb
+C:\Users\shini\source\repos\Proyecto-POO\bin\Debug\Newtonsoft.Json.dll
+C:\Users\shini\source\repos\Proyecto-POO\bin\Debug\Newtonsoft.Json.xml
+C:\Users\shini\source\repos\Proyecto-POO\obj\Debug\Proyecto-POO.csproj.CoreCompileInputs.cache
+C:\Users\shini\source\repos\Proyecto-POO\obj\Debug\Proyecto-POO.csproj.CopyComplete
+C:\Users\shini\source\repos\Proyecto-POO\obj\Debug\Proyecto-POO.exe
+C:\Users\shini\source\repos\Proyecto-POO\obj\Debug\Proyecto-POO.pdb
