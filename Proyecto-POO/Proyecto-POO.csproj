@@ -48,16 +48,19 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="AdminMenu.cs" />
+    <Compile Include="Branch.cs" />
     <Compile Include="Candy.cs" />
     <Compile Include="CandyShop.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeMenu.cs" />
     <Compile Include="IMenu.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="ManageBranches.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieListings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale.cs" />
     <Compile Include="TicketOffice.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserMenu.cs" />

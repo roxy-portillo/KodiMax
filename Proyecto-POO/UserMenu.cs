@@ -8,13 +8,14 @@ namespace Proyecto_POO
         MovieListings movieListings = new MovieListings();
         CandyShop candyShop = new CandyShop();
         TicketOffice ticketOffice = new TicketOffice();
+        ManageBranches manageBranches = new ManageBranches();
         Login login = new Login();
 
         public void Print()
         {
             Console.Clear();
             Console.WriteLine("KODIMAX - CLIENTE\n********************");
-            Console.WriteLine("1. Ver Cartelera\n2. Ver Tienda de Golosinas\n3. Comprar Boletos\n4. Comprar Golosinas\n5. Salir\n");
+            Console.WriteLine("1. Ver Cartelera\n2. Ver Tienda de Golosinas\n3. Comprar Boletos\n4. Comprar Golosinas\n5. Ver Nuevas Sucursales\n6. Salir\n");
             Console.WriteLine("Ingresa una opción:");
             Option = Console.ReadLine();
             NavigateMenu();
@@ -50,6 +51,14 @@ namespace Proyecto_POO
                     break;
 
                 case "5":
+                    Console.Clear();
+                    Console.WriteLine("\tNuevas Sucursales\n");
+                    manageBranches.Print();
+                    Console.WriteLine("Presione cualquier tecla para continuar");
+                    Console.ReadKey();
+                    break;
+
+                case "6":
                     Console.Clear();
                     login.userLogin();
                     break;

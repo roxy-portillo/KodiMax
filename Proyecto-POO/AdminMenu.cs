@@ -11,12 +11,13 @@ namespace Proyecto_POO
         CandyShop candyShop = new CandyShop();
         TicketOffice ticketOffice = new TicketOffice();
         Login login = new Login();
+        ManageBranches manageBranches = new ManageBranches();
 
         public void Print()
         {
             Console.Clear();
             Console.WriteLine("KODIMAX - ADMINISTRADOR\n*****************************");
-            Console.WriteLine("1. Crear o eliminar empleados\n2. Eliminar usuarios\n3. Modificar Cartelera\n4. Modificar Tienda de Golosinas\n5. Reportes\n6. Salir\n");
+            Console.WriteLine("1. Crear o eliminar empleados\n2. Eliminar usuarios\n3. Modificar Cartelera\n4. Modificar Tienda de Golosinas\n5. Reportes\n6. Modificar Sucursales\n7. Modificar Precios Autocine\n8. Salir\n");
             Console.WriteLine("Ingresa una opción:");
             Option = Console.ReadLine();
             NavigateMenu();
@@ -300,7 +301,7 @@ namespace Proyecto_POO
 
                 case "5":
                     Console.Clear();
-                    Console.WriteLine("\n1. Reporte usuarios\tIngrese U\n2. Reporte peliculas\tIngrese C\n3. Reporte golosinas\tIngrese G\n");
+                    Console.WriteLine("\n1. Reporte usuarios\tIngrese U\n2. Reporte peliculas\tIngrese C\n3. Reporte golosinas\tIngrese G\n4. Reporte de ventas\tIngrese S\n");
                     string letter = Console.ReadLine();
                     switch (letter)
                     {
@@ -385,6 +386,49 @@ namespace Proyecto_POO
                             Console.ReadKey();
                             break;
 
+                        case "S":
+                            List<Sale> branch1Sales = new List<Sale>();
+                            List<Sale> branch2Sales = new List<Sale>();
+                            for (int i = 0; i < ticketOffice.Sales.Count; i++)
+                            {
+                                if (ticketOffice.Sales[i].Name == "KodiMax Centro")
+                                {
+                                    branch1Sales.Add(new Sale()
+                                    {
+                                        Name = ticketOffice.Sales[i].Name,
+                                        Type = ticketOffice.Sales[i].Type,
+                                        Movie = ticketOffice.Sales[i].Movie,
+                                        Quantity = ticketOffice.Sales[i].Quantity,
+                                        Price = ticketOffice.Sales[i].Price,
+                                    });
+                                }
+                            }
+                            for (int i = 0; i < ticketOffice.Sales.Count; i++)
+                            {
+                                if (ticketOffice.Sales[i].Name == "KodiMax Sur")
+                                {
+                                    branch2Sales.Add(new Sale()
+                                    {
+                                        Name = ticketOffice.Sales[i].Name,
+                                        Type = ticketOffice.Sales[i].Type,
+                                        Movie = ticketOffice.Sales[i].Movie,
+                                        Quantity = ticketOffice.Sales[i].Quantity,
+                                        Price = ticketOffice.Sales[i].Price,
+                                    });
+                                }
+                            }
+                            Console.Clear();
+                            Console.WriteLine("\nCreando archivo ventasSucursal1.json...");
+                            string jsonS1 = JsonConvert.SerializeObject(branch1Sales.ToArray());
+                            Console.WriteLine("\nCreando archivo ventasSucursal2.json...");
+                            string jsonS2 = JsonConvert.SerializeObject(branch2Sales.ToArray());
+                            System.IO.File.WriteAllText(@"C:\json\ventasSucursal1.json", jsonS1);
+                            Console.WriteLine("\nArchivo ventasSucursal1.json creado\n");
+                            System.IO.File.WriteAllText(@"C:\json\ventasSucursal2.json", jsonS2);
+                            Console.WriteLine("\nArchivo ventasSucursal2.json creado\n");
+                            Console.ReadKey();
+
+                            break;
                     }
 
                     Console.WriteLine("Presione cualquier tecla para continuar");
@@ -392,6 +436,99 @@ namespace Proyecto_POO
                     break;
 
                 case "6":
+                    Console.Clear();
+                    Console.WriteLine("\n1. Agregar sucursal\n2. Modificar sucursal\n");
+                    int optionc6 = int.Parse(Console.ReadLine());
+                    if (manageBranches.Branches.Count == 0)
+                    { manageBranches.BranchList(); }
+                    switch (optionc6)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("Ingresa ID:");
+                            string ID = Console.ReadLine();
+                            Console.WriteLine("Ingresa Nombre:");
+                            string Name = Console.ReadLine();
+                            Console.WriteLine("Ingresa la modalidad:");
+                            string Type = Console.ReadLine();
+                            Branch newBranch = new Branch(ID, Name, Type);
+                            Console.WriteLine("\nAñadiendo sucursal...\n");
+                            manageBranches.Branches.Add(newBranch);
+                            Console.WriteLine("\nSucursal añadida...\n");
+                            foreach (Branch b in manageBranches.Branches)
+                            {
+                                Console.WriteLine(b);
+                            }
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Modificar sucursal:\nIngresa ID\n");
+                            string branchID = Console.ReadLine();
+                            Console.WriteLine("\nIngresa el nuevo nombre");
+                            string newName = Console.ReadLine();
+                            Console.WriteLine("\nIngresa el nuevo ID");
+                            string newID = Console.ReadLine();
+                            Console.WriteLine("\nIngresa la nueva modalidad");
+                            string newType = Console.ReadLine();
+
+                            foreach (Branch b in manageBranches.Branches)
+                            {
+                                if (b.ID == branchID)
+                                {
+                                    b.Name = newName;
+                                    b.ID = newID;
+                                    b.Type = newType;
+                                    Console.WriteLine("\nID: {0} Nombre: {1} Modalidad: {2}\n", b.ID, b.Name, b.Type);
+                                    break;
+                                }
+                            }
+                            break;
+
+                        default: break;
+
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar");
+                    Console.ReadKey();
+                    break;
+
+                case "7":
+                    Console.Clear();
+                    Console.WriteLine("\n1. Agregar precios autocine\n2. Modificar precios autocine\n");
+                    int optionc7 = int.Parse(Console.ReadLine());
+                    if (manageBranches.Branches.Count == 0)
+                    { manageBranches.BranchList(); }
+                    switch (optionc7)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("Ingresa nuevo precio:");
+                            double Price = double.Parse(Console.ReadLine());
+
+                            Console.WriteLine("\nAñadiendo precio...\n");
+                            ticketOffice.Price = Price;
+                            Console.WriteLine("\nPrecio añadido...\n");
+                            Console.WriteLine("\nPrecio: ${0}\n", ticketOffice.Price);
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Modificar precio autocine:\n");
+                            Console.WriteLine("\nIngresa el nuevo precio");
+                            double newPrice = double.Parse(Console.ReadLine());
+
+                            ticketOffice.DriveInPrice = newPrice;
+                            Console.WriteLine("\nPrecio: ${0}\n", ticketOffice.DriveInPrice);
+                            break;
+
+                        default: break;
+
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar");
+                    Console.ReadKey();
+                    break;
+
+                case "8":
                     Console.Clear();
                     login.userLogin();
                     break;
@@ -402,4 +539,3 @@ namespace Proyecto_POO
             Print();
         }
     }
-}

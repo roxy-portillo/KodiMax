@@ -9,12 +9,13 @@ namespace Proyecto_POO
         MovieListings movieListings = new MovieListings();
         CandyShop candyShop = new CandyShop();
         TicketOffice ticketOffice = new TicketOffice();
+        ManageBranches manageBranches = new ManageBranches();
 
         public void Print()
         {
             Console.Clear();
             Console.WriteLine("KODIMAX - EMPLEADO\n********************");
-            Console.WriteLine("1. Modificar Cartelera\n2. Modificar Tienda de Golosinas\n3. Salir\n");
+            Console.WriteLine("1. Modificar Cartelera\n2. Modificar Tienda de Golosinas\n3. Modificar Sucursales\n4. Modificar Precios Autocine\n5. Salir\n");
             Console.WriteLine("Ingresa una opción:");
             Option = Console.ReadLine();
             NavigateMenu();
@@ -202,6 +203,100 @@ namespace Proyecto_POO
                     break;
 
                 case "3":
+                    Console.Clear();
+
+                    Console.WriteLine("\n1. Agregar sucursal\n2. Modificar sucursal\n");
+                    int optionc3 = int.Parse(Console.ReadLine());
+                    if (manageBranches.Branches.Count == 0)
+                    { manageBranches.BranchList(); }
+                    switch (optionc3)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("Ingresa ID:");
+                            string ID = Console.ReadLine();
+                            Console.WriteLine("Ingresa Nombre:");
+                            string Name = Console.ReadLine();
+                            Console.WriteLine("Ingresa la modalidad:");
+                            string Type = Console.ReadLine();
+                            Branch newBranch = new Branch(ID, Name, Type);
+                            Console.WriteLine("\nAñadiendo sucursal...\n");
+                            manageBranches.Branches.Add(newBranch);
+                            Console.WriteLine("\nSucursal añadida...\n");
+                            foreach (Branch b in manageBranches.Branches)
+                            {
+                                Console.WriteLine(b);
+                            }
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Modificar sucursal:\nIngresa ID\n");
+                            string branchID = Console.ReadLine();
+                            Console.WriteLine("\nIngresa el nuevo nombre");
+                            string newName = Console.ReadLine();
+                            Console.WriteLine("\nIngresa el nuevo ID");
+                            string newID = Console.ReadLine();
+                            Console.WriteLine("\nIngresa la nueva modalidad");
+                            string newType = Console.ReadLine();
+
+                            foreach (Branch b in manageBranches.Branches)
+                            {
+                                if (b.ID == branchID)
+                                {
+                                    b.Name = newName;
+                                    b.ID = newID;
+                                    b.Type = newType;
+                                    Console.WriteLine("\nID: {0} Nombre: {1} Modalidad: {2}\n", b.ID, b.Name, b.Type);
+                                    break;
+                                }
+                            }
+                            break;
+
+                        default: break;
+
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar");
+                    Console.ReadKey();
+                    break;
+
+                case "4":
+                    Console.Clear();
+                    Console.WriteLine("\n1. Agregar precios autocine\n2. Modificar precios autocine\n");
+                    int optionc4 = int.Parse(Console.ReadLine());
+                    if (manageBranches.Branches.Count == 0)
+                    { manageBranches.BranchList(); }
+                    switch (optionc4)
+                    {
+                        case 1:
+                            Console.Clear();                           
+                            Console.WriteLine("Ingresa nuevo precio:");
+                            double Price = double.Parse(Console.ReadLine());
+                            
+                            Console.WriteLine("\nAñadiendo precio...\n");
+                            ticketOffice.Price = Price;
+                            Console.WriteLine("\nPrecio añadido...\n");
+                            Console.WriteLine("\nPrecio: ${0}\n", ticketOffice.Price);
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Modificar precio autocine:\n");                         
+                            Console.WriteLine("\nIngresa el nuevo precio");
+                            double newPrice = double.Parse(Console.ReadLine());
+                            
+                            ticketOffice.DriveInPrice = newPrice;
+                            Console.WriteLine("\nPrecio: ${0}\n", ticketOffice.DriveInPrice);
+                            break;
+
+                        default: break;
+
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar");
+                    Console.ReadKey();
+                    break;
+
+                case "5":
                     Console.Clear();
                     login.userLogin();
                     break;

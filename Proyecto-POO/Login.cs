@@ -5,8 +5,7 @@ namespace Proyecto_POO
 {
     class Login : User
     {
-        public string UserName { get; set; }
-        public new string Password { get; set; }
+        
         public List<User> users = new List<User>();
         private string KodimaxID = "KGD5JD6-MAX";
         private bool Verified;
@@ -35,16 +34,17 @@ namespace Proyecto_POO
             Console.Clear();
             Console.WriteLine("\nLogin\n");
             Console.Write("Usuario: ");
-            UserName = Console.ReadLine();
+            Username = Console.ReadLine();
             Console.Write("Contraseña: ");
             Password = Console.ReadLine();
 
             foreach (User u in users)
             {
                 //check if it is in list
-                if (UserName == u.Username && Password == u.Password)
+                if (Username == u.Username && Password == u.Password)
                 {
                     Verified = true;
+                    Type = u.Type;
                     break;
                 }
                 else
@@ -57,12 +57,12 @@ namespace Proyecto_POO
             {
                 Console.WriteLine("\nUsuario verificado");
                 Console.ReadKey();
-                if (UserName.Equals("admin-max"))
+                if (Type == "Admin")
                 {
                     AdminMenu adminMenu = new AdminMenu();
                     adminMenu.Print();
                 }
-                else if (UserName.Contains("-max"))
+                else if (Type == "Employee")
                 {
                     EmployeeMenu employeeMenu = new EmployeeMenu();
                     employeeMenu.Print();
@@ -131,6 +131,7 @@ namespace Proyecto_POO
                 if (id == KodimaxID)
                 {
                     Console.WriteLine("ID valido! Registrado como empleado\n");
+                    newUser.Type = "Employee";
                     users.Add(newUser);
                     Console.ReadKey();
                     userLogin();
